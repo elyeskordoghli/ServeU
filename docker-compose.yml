@@ -1,0 +1,41 @@
+services:
+  # api:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #     # Only will build development stage from our dockerfile
+  #     target: development
+  #   volumes:
+  #     - .:/usr/src/app
+  #   env_file:
+  #     - ./envs/.env.development
+  #   # Run a command against the development stage of the image
+  #   # command: npm run start:dev
+  #   ports:
+  #     - 3001:3001
+  #   depends_on:
+  #     - postgres
+
+  #   networks:
+  #     - postgres
+
+  postgres:
+    image: postgres:15.1
+
+    networks:
+      - postgres
+
+    env_file:
+      - docker.env
+
+    restart: always
+
+    volumes:
+      - /data/postgres:/data/postgres
+
+    ports:
+      - '127.0.0.1:5432:5432'
+
+networks:
+  postgres:
+    driver: bridge
